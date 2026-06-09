@@ -1,0 +1,720 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AsiaCar Transfer – Montene</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #921c0a;
+    --green-mid: #f44418e9;
+    --green-light: #c23a11;
+    --green-pale: #EAF3DE;
+    --green-soft: #C0DD97;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --amber-soft: #FAC775;
+    --earth: #633806;
+    --earth-light: #FAEEDA;
+    --text-dark: #2C2C2A;
+    --text-mid: #5F5E5A;
+    --text-light: #888780;
+    --white: #FAFAF8;
+    --border: rgba(99,99,88,0.15);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top:0; left:0; right:0;
+    background: rgba(250,250,248,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--amber); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    transition: color 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .nav-links a:hover { color: var(--green-mid); }
+  .nav-cta {
+    background: var(--green-mid);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--green-dark) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(to bottom, rgba(39,80,10,0.65) 0%, rgba(39,80,10,0.3) 60%, rgba(250,250,248,0) 100%),
+      url('https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=1600&q=80') center/cover no-repeat;
+    display: flex; align-items: center;
+    padding: 120px 2rem 4rem;
+    position: relative;
+  }
+  .hero-content { max-width: 660px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(193,221,151,0.25);
+    border: 1px solid rgba(193,221,151,0.5);
+    color: var(--green-soft);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 30px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--amber-soft);
+  }
+  .hero p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--amber);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--earth); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.6);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--green-dark);
+    padding: 1.5rem 2rem;
+    display: flex; justify-content: center; gap: 4rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; color: #fff; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--amber-soft);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    color: var(--green-dark);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--text-mid);
+    font-size: 1rem;
+    font-weight: 300;
+    max-width: 520px;
+  }
+
+  /* SERVICES */
+  #services { background: var(--green-pale); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .service-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(39,80,10,0.08); }
+  .service-icon {
+    width: 52px; height: 52px;
+    background: var(--green-pale);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+  }
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    margin-bottom: 0.5rem;
+  }
+  .service-card p { color: var(--text-mid); font-size: 0.9rem; font-weight: 300; line-height: 1.6; }
+  .service-price {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--amber);
+  }
+
+  /* WHY US */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+  .why-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .why-dot {
+    width: 10px; height: 10px;
+    background: var(--green-light);
+    border-radius: 50%;
+    margin-top: 0.55rem;
+    flex-shrink: 0;
+  }
+  .why-item strong { color: var(--green-dark); font-weight: 500; display: block; }
+  .why-item span { color: var(--text-mid); font-size: 0.9rem; font-weight: 300; }
+  .why-image {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--green-pale);
+  }
+  .why-image img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* BOOKING FORM */
+  #rezervasyon, #booking, #rezervacija {
+    background: var(--text-dark);
+  }
+  #rezervasyon .section-title,
+  #booking .section-title,
+  #rezervacija .section-title { color: var(--amber-soft); }
+  #rezervasyon .section-label,
+  #booking .section-label,
+  #rezervacija .section-label { color: var(--green-soft); }
+  #rezervasyon .section-sub,
+  #booking .section-sub,
+  #rezervacija .section-sub { color: rgba(255,255,255,0.6); }
+
+  .booking-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+  .booking-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .booking-info p { color: rgba(255,255,255,0.6); font-size: 0.9rem; font-weight: 300; line-height: 1.7; margin-bottom: 1.5rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    text-decoration: none;
+  }
+  .contact-item:hover { color: var(--amber-soft); }
+  .contact-icon {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  label { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; display: block; margin-bottom: 0.35rem; }
+  input, select, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--amber-soft); }
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
+  select option { background: #2C2C2A; color: #fff; }
+  textarea { resize: vertical; min-height: 90px; }
+  .form-submit {
+    background: var(--amber);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--earth); }
+  .form-note { font-size: 0.8rem; color: rgba(255,255,255,0.35); text-align: center; }
+
+  /* LANGUAGES TABS */
+  .lang-tabs {
+    display: flex; gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .lang-tab {
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .lang-tab.active {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: #fff;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #1a1a18;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--amber-soft);
+    margin-bottom: 0.5rem;
+  }
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.85rem; }
+  .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin: 1.5rem 0; flex-wrap: wrap; }
+  .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--amber-soft); }
+
+  /* MOBILE */
+  .hamburger { display: none; font-size: 1.4rem; cursor: pointer; color: var(--green-dark); background: none; border: none; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-image { display: none; }
+    .booking-wrap { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .stats-bar { gap: 2rem; }
+  }
+
+  /* CONFIRMATION */
+  .form-success {
+    display: none;
+    background: var(--green-mid);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    color: #fff;
+    font-weight: 400;
+  }
+  .form-success strong { display: block; font-size: 1.1rem; margin-bottom: 0.4rem; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Asya <span>Tour</span> Transfer</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#booking" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('navLinks').style.display='flex'">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">🇲🇪 Montenegro Private Transfers</div>
+    <h1>Travel in <em>Comfort</em> Across Montenegro</h1>
+    <p>Personal, door-to-door transfer service. Airport pickups, city transfers, and private day tours — your journey, your pace.</p>
+    <div class="hero-buttons">
+      <a href="#booking" class="btn-primary">Book Your Transfer</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Available</span></div>
+  <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Private</span></div>
+  <div class="stat"><span class="stat-num">1–1</span><span class="stat-label">Personal Service</span></div>
+  <div class="stat"><span class="stat-num">MNE</span><span class="stat-label">All Destinations</span></div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <p class="section-label">What we offer</p>
+    <h2 class="section-title">Private Transfer Services</h2>
+    <p class="section-sub">Every ride is personal — I accompany you directly, no sharing, no waiting.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">✈️</div>
+        <h3>Airport Transfers</h3>
+        <p>Tivat, Podgorica, and Dubrovnik airports. On-time pickup, flight tracking, meet & greet service.</p>
+        <p class="service-price">From €30 · One way</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚗</div>
+        <h3>City to City Transfers</h3>
+        <p>Comfortable rides between any cities in Montenegro — Budva, Kotor, Herceg Novi, Bar, Podgorica and more.</p>
+        <p class="service-price">From €40 · Fixed price</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏔️</div>
+        <h3>Daily Tours</h3>
+        <p>Private guided day trips to Durmitor, Skadar Lake, Cetinje, Perast, and beyond. Flexible itineraries.</p>
+        <p class="service-price">From €80 · Full day</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Custom Journeys</h3>
+        <p>Multi-day trips, special occasions, or any destination you have in mind. Just ask.</p>
+        <p class="service-price">Price on request</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">Why choose us</p>
+    <h2 class="section-title">A Truly Personal Experience</h2>
+    <div class="why-grid">
+      <ul class="why-list">
+        <li class="why-item">
+          <div class="why-dot"></div>
+          <div><strong>I travel with you</strong><span>Every journey is personal — not a dispatch service. You book directly with me, and I'm there with you.</span></div>
+        </li>
+        <li class="why-item">
+          <div class="why-dot"></div>
+          <div><strong>Fixed, transparent prices</strong><span>No surprises. Prices are agreed in advance, no meters, no hidden fees.</span></div>
+        </li>
+        <li class="why-item">
+          <div class="why-dot"></div>
+          <div><strong>Local knowledge</strong><span>Born and based in Montenegro — I know the roads, the shortcuts, and the hidden gems.</span></div>
+        </li>
+        <li class="why-item">
+          <div class="why-dot"></div>
+          <div><strong>Always on time</strong><span>Flight tracking, flexible scheduling, and 24/7 availability for your peace of mind.</span></div>
+        </li>
+        <li class="why-item">
+          <div class="why-dot"></div>
+          <div><strong>Multilingual service</strong><span>English, Turkish, and Montenegrin — communicate comfortably throughout your journey.</span></div>
+        </li>
+      </ul>
+      <div class="why-image">
+        <img src="https://images.unsplash.com/photo-1566024349765-56ece2aca73e?w=800&q=80" alt="Montenegro coastal road" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="container">
+    <div class="lang-tabs">
+      <button class="lang-tab active" onclick="setLang('en')">🇬🇧 English</button>
+      <button class="lang-tab" onclick="setLang('tr')">🇹🇷 Türkçe</button>
+      <button class="lang-tab" onclick="setLang('me')">🇲🇪 Crnogorski</button>
+    </div>
+
+    <!-- English -->
+    <div id="lang-en">
+      <p class="section-label">Reserve your ride</p>
+      <h2 class="section-title">Book Your Transfer</h2>
+      <p class="section-sub">Fill in your details and I'll confirm within a few hours.</p>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>Get in touch</h3>
+          <p>Prefer to talk directly? Reach me on WhatsApp or send an email — I'm always happy to help plan your journey.</p>
+          <a class="contact-item" href="tel:+382068721617"><div class="contact-icon">📞</div> +382 068 721 617</a>
+          <a class="contact-item" href="mailto:asyarentacar.me@gmail.com"><div class="contact-icon">✉️</div> asyarentacar.me@gmail.com</a>
+          <a class="contact-item" href="https://instagram.com/asiacar_transfer" target="_blank"><div class="contact-icon">📸</div> @asia_tur_transfer</a>
+          <a class="contact-item" href="https://wa.me/38268721617"><div class="contact-icon">💬</div> WhatsApp</a>
+        </div>
+        <div>
+          <form id="bookingForm" onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div><label>Full Name</label><input type="text" name="name" placeholder="Your name" required /></div>
+              <div><label>Phone / WhatsApp</label><input type="tel" name="phone" placeholder="+1 234 567 890" required /></div>
+            </div>
+            <div><label>Email</label><input type="email" name="email" placeholder="you@example.com" required /></div>
+            <div class="form-row">
+              <div><label>Service Type</label>
+                <select name="service" required>
+                  <option value="">Select a service</option>
+                  <option>Airport Transfer</option>
+                  <option>City to City Transfer</option>
+                  <option>Daily Tour</option>
+                  <option>Custom Journey</option>
+                </select>
+              </div>
+              <div><label>Date</label><input type="date" name="date" required /></div>
+            </div>
+            <div class="form-row">
+              <div><label>Pickup Location</label><input type="text" name="from" placeholder="e.g. Tivat Airport" required /></div>
+              <div><label>Drop-off Location</label><input type="text" name="to" placeholder="e.g. Budva" required /></div>
+            </div>
+            <div class="form-row">
+              <div><label>Pickup Time</label><input type="time" name="time" /></div>
+              <div><label>Passengers</label>
+                <select name="pax">
+                  <option>1 passenger</option>
+                  <option>2 passengers</option>
+                  <option>3 passengers</option>
+                  <option>4 passengers</option>
+                  <option>5+ passengers</option>
+                </select>
+              </div>
+            </div>
+            <div><label>Notes (optional)</label><textarea name="notes" placeholder="Flight number, special requests..."></textarea></div>
+            <button type="submit" class="form-submit">Send Booking Request →</button>
+            <p class="form-note">No payment required now. I'll contact you to confirm details.</p>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <strong>✅ Request received!</strong>
+            I'll contact you within a few hours to confirm your booking.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Turkish -->
+    <div id="lang-tr" style="display:none">
+      <p class="section-label">Rezervasyon yapın</p>
+      <h2 class="section-title">Transferinizi Rezerve Edin</h2>
+      <p class="section-sub">Bilgilerinizi doldurun, birkaç saat içinde onaylayayım.</p>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>Bize ulaşın</h3>
+          <p>Doğrudan konuşmayı mı tercih edersiniz? WhatsApp veya e-posta ile ulaşabilirsiniz.</p>
+          <a class="contact-item" href="tel:+382068721617"><div class="contact-icon">📞</div> +382 068 721 617</a>
+          <a class="contact-item" href="mailto:asyarentacar.me@gmail.com"><div class="contact-icon">✉️</div> asyarentacar.me@gmail.com</a>
+          <a class="contact-item" href="https://instagram.com/asia_tur_transfer" target="_blank"><div class="contact-icon">📸</div> @asia_tur_transfer</a>
+          <a class="contact-item" href="https://wa.me/382068721617"><div class="contact-icon">💬</div> WhatsApp</a>
+        </div>
+        <div>
+          <form onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div><label>Ad Soyad</label><input type="text" placeholder="Adınız" required /></div>
+              <div><label>Telefon / WhatsApp</label><input type="tel" placeholder="+90 5xx xxx xx xx" required /></div>
+            </div>
+            <div><label>E-posta</label><input type="email" placeholder="siz@ornek.com" required /></div>
+            <div class="form-row">
+              <div><label>Hizmet Türü</label>
+                <select required>
+                  <option value="">Seçiniz</option>
+                  <option>Havalimanı Transferi</option>
+                  <option>Şehirler Arası Transfer</option>
+                  <option>Günlük Tur</option>
+                  <option>Özel Yolculuk</option>
+                </select>
+              </div>
+              <div><label>Tarih</label><input type="date" required /></div>
+            </div>
+            <div class="form-row">
+              <div><label>Alınacak Yer</label><input type="text" placeholder="Örn. Tivat Havalimanı" required /></div>
+              <div><label>Gidilecek Yer</label><input type="text" placeholder="Örn. Budva" required /></div>
+            </div>
+            <div class="form-row">
+              <div><label>Saat</label><input type="time" /></div>
+              <div><label>Kişi Sayısı</label>
+                <select>
+                  <option>1 kişi</option><option>2 kişi</option><option>3 kişi</option><option>4 kişi</option><option>5+ kişi</option>
+                </select>
+              </div>
+            </div>
+            <div><label>Notlar (isteğe bağlı)</label><textarea placeholder="Uçuş numarası, özel istekler..."></textarea></div>
+            <button type="submit" class="form-submit">Rezervasyon Talebi Gönder →</button>
+            <p class="form-note">Şimdi ödeme gerekmez. Detayları onaylamak için sizi arayacağım.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Montenegrin -->
+    <div id="lang-me" style="display:none">
+      <p class="section-label">Rezervišite vožnju</p>
+      <h2 class="section-title">Rezervišite Transfer</h2>
+      <p class="section-sub">Popunite podatke i potvrdićemo u roku od nekoliko sati.</p>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>Kontaktirajte nas</h3>
+          <p>Preferirate direktan razgovor? Pišite nam na WhatsApp ili e-mail — uvijek smo tu.</p>
+          <a class="contact-item" href="tel:+382068721617"><div class="contact-icon">📞</div> +382 068 721 617</a>
+          <a class="contact-item" href="mailto:asyarentacar.me@gmail.com"><div class="contact-icon">✉️</div> asyarentacar.me@gmail.com</a>
+          <a class="contact-item" href="https://instagram.com/asia_tur_transfer" target="_blank"><div class="contact-icon">📸</div> @asia_tur_transfer</a>
+          <a class="contact-item" href="https://wa.me/382068721617"><div class="contact-icon">💬</div> WhatsApp</a>
+        </div>
+        <div>
+          <form onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div><label>Ime i Prezime</label><input type="text" placeholder="Vaše ime" required /></div>
+              <div><label>Telefon / WhatsApp</label><input type="tel" placeholder="+382 xx xxx xxx" required /></div>
+            </div>
+            <div><label>E-mail</label><input type="email" placeholder="vi@primjer.com" required /></div>
+            <div class="form-row">
+              <div><label>Vrsta Usluge</label>
+                <select required>
+                  <option value="">Izaberite</option>
+                  <option>Transfer do Aerodroma</option>
+                  <option>Transfer između Gradova</option>
+                  <option>Jednodnevni Izlet</option>
+                  <option>Individualno Putovanje</option>
+                </select>
+              </div>
+              <div><label>Datum</label><input type="date" required /></div>
+            </div>
+            <div class="form-row">
+              <div><label>Mjesto Polaska</label><input type="text" placeholder="npr. Aerodrom Tivat" required /></div>
+              <div><label>Odredište</label><input type="text" placeholder="npr. Budva" required /></div>
+            </div>
+            <div class="form-row">
+              <div><label>Vrijeme Polaska</label><input type="time" /></div>
+              <div><label>Broj Putnika</label>
+                <select>
+                  <option>1 putnik</option><option>2 putnika</option><option>3 putnika</option><option>4 putnika</option><option>5+ putnika</option>
+                </select>
+              </div>
+            </div>
+            <div><label>Napomena (opciono)</label><textarea placeholder="Broj leta, posebni zahtjevi..."></textarea></div>
+            <button type="submit" class="form-submit">Pošaljite Zahtjev →</button>
+            <p class="form-note">Plaćanje nije potrebno sada. Kontaktiraćemo vas za potvrdu.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Asya Tour Transfer</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="tel:+382068721617">+382 068 721 617</a>
+    <a href="https://instagram.com/asia_tur_transfer" target="_blank">Instagram</a>
+    <a href="https://wa.me/382068721617" target="_blank">WhatsApp</a>
+  </div>
+  <p>© 2025 Asya Tour Transfer · Montenegro · asyarentacar.me@gmail.com</p>
+</footer>
+
+<script>
+function setLang(lang) {
+  ['en','tr','me'].forEach(l => {
+    document.getElementById('lang-'+l).style.display = l===lang ? 'block' : 'none';
+  });
+  document.querySelectorAll('.lang-tab').forEach((btn, i) => {
+    btn.classList.toggle('active', ['en','tr','me'][i] === lang);
+  });
+}
+function submitForm(e) {
+  e.preventDefault();
+  document.getElementById('bookingForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+</script>
+</body>
+</html>
